@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Ring - Product Page</title>
+    <style>
+        /* Modern CSS Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            margin: 20px 0;
+        }
+
+        .variant-selector {
+            margin: 25px 0;
+        }
+
+        .variant-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .variant-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .variant-option {
+            padding: 10px 18px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .variant-option:hover {
+            border-color: #aaa;
+        }
+
+        .variant-option.selected {
+            background-color: #2a2a2a;
+            color: white;
+            border-color: #2a2a2a;
+        }
+
+        .add-to-cart {
+            background-color: #2a2a2a;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.2s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #1a1a1a;
+        }
+
+        /* Price Breakup Styling */
+        .price-breakup-container {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .price-breakup-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #333;
+        }
+
+        .price-breakup-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .price-breakup-table td {
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        .price-breakup-table td:last-child {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .price-breakup-table .total-row td {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            padding-top: 1.2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .price-breakup-container {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="product-container">
+        <!-- Product Image -->
+        <div class="product-image-container">
+            <img src="https://via.placeholder.com/600x600" alt="Gold Ring" class="product-image">
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            <h1 class="product-title">Gold Ring</h1>
+            <div class="product-price" id="total-price">₹16,500</div>
+
+            <!-- Variant Selector -->
+            <div class="variant-selector">
+                <label class="variant-label">Gold Purity</label>
+                <div class="variant-options">
+                    <div class="variant-option selected" data-variant="14k">14K</div>
+                    <div class="variant-option" data-variant="18k">18K</div>
+                    <div class="variant-option" data-variant="22k">22K</div>
+                </div>
+            </div>
+
+            <!-- Price Breakup Table -->
+            <div class="price-breakup-container">
+                <h3 class="price-breakup-title">Price Breakdown</h3>
+                <table class="price-breakup-table">
+                    <tbody>
+                        <tr>
+                            <td>Gold Price (<span id="gold-weight">2.5</span>g)</td>
+                            <td id="gold-price">₹10,500</td>
+                        </tr>
+                        <tr>
+                            <td>Diamond Price</td>
+                            <td id="diamond-price">₹4,000</td>
+                        </tr>
+                        <tr>
+                            <td>Making Charges</td>
+                            <td id="making-charge">₹2,000</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Total Price</strong></td>
+                            <td id="dynamic-total-price">₹16,500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+
+    <script>
+        // Product Variant Data
+        const variants = {
+            '14k': {
+                goldPricePerGram: 4200,
+                goldWeight: 2.5,
+                diamondPrice: 4000,
+                makingCharge: 2000, // Fixed amount
+                totalPrice: 16500
+            },
+            '18k': {
+                goldPricePerGram: 4800,
+                goldWeight: 2.5,
+                diamondPrice: 4000,
+                makingCharge: '15%', // Percentage of (gold + diamond)
+                totalPrice: 19300
+            },
+            '22k': {
+                goldPricePerGram: 5200,
+                goldWeight: 2.5,
+                diamondPrice: 4000,
+                makingCharge: '20%', // Percentage of (gold + diamond)
+                totalPrice: 21600
+            }
+        };
+
+        // DOM Elements
+        const variantOptions = document.querySelectorAll('.variant-option');
+        const goldWeightEl = document.getElementById('gold-weight');
+        const goldPriceEl = document.getElementById('gold-price');
+        const diamondPriceEl = document.getElementById('diamond-price');
+        const makingChargeEl = document.getElementById('making-charge');
+        const totalPriceEl = document.getElementById('dynamic-total-price');
+        const mainPriceEl = document.getElementById('total-price');
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '₹' + amount.toLocaleString('en-IN');
+        }
+
+        // Calculate making charge
+        function calculateMakingCharge(variant, goldPrice, diamondPrice) {
+            if (typeof variant.makingCharge === 'string' && variant.makingCharge.includes('%')) {
+                const percentage = parseFloat(variant.makingCharge.replace('%', ''));
+                return (goldPrice + diamondPrice) * (percentage / 100);
+            }
+            return variant.makingCharge;
+        }
+
+        // Update price breakup
+        function updatePriceBreakup(variantKey) {
+            const variant = variants[variantKey];
+            
+            // Calculate values
+            const goldPrice = variant.goldPricePerGram * variant.goldWeight;
+            const diamondPrice = variant.diamondPrice;
+            const makingCharge = calculateMakingCharge(variant, goldPrice, diamondPrice);
+            const totalPrice = variant.totalPrice;
+
+            // Update DOM
+            goldWeightEl.textContent = variant.goldWeight;
+            goldPriceEl.textContent = formatCurrency(goldPrice);
+            diamondPriceEl.textContent = formatCurrency(diamondPrice);
+            makingChargeEl.textContent = formatCurrency(makingCharge);
+            totalPriceEl.textContent = formatCurrency(totalPrice);
+            mainPriceEl.textContent = formatCurrency(totalPrice);
+        }
+
+        // Handle variant selection
+        variantOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Update selected state
+                variantOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                
+                // Update prices
+                const variantKey = option.dataset.variant;
+                updatePriceBreakup(variantKey);
+            });
+        });
+
+        // Initialize with first variant
+        updatePriceBreakup('14k');
+    </script>
+</body>
+</html>
